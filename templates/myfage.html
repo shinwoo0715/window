@@ -1,0 +1,78 @@
+{% extends 'form.html' %}
+{% load static %}
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="{% static 'css/indexStyle.css' %}">
+  <title>Document</title>
+</head>
+<body>
+  <div id='main' align='center'>
+    <br>
+    userID : {{user.id}} <br />
+    아이디 : {{user.username}} <br>
+    비밀번호 : {{user.password}} <br>
+    이메일 : {{user.email}} <br>
+    로그인 여부 : {{user.is_active}} <br>
+    관리자 여부 : {{user.is_staff}} <br>
+    최고관리자 여부 : {{user.is_superuser}} <br>
+    최종접속시간 : {{user.last_login}} <br>
+
+  </div>
+
+
+  <form action="{% url 'myfage' %}" method="get">
+
+    {% for posts in post %}
+    <div class="post">
+      <!-- USER POST -->
+      <div class="post-user">{{ posts.사용자 }} - {{ posts.postdate }}
+                                            <!-- <img class='postLogo' src="{% static 'image/postLogo.png' %}" alt="img"> -->
+      </div> <br />
+
+      <!-- IMAGE PSOT -->                                      <!-- https://ssungkang.tistory.com/entry/DjangoDate%EC%99%80-Time%EC%9D%84-%EB%82%98%ED%83%80%EB%82%B4%EB%8A%94-template-filter -->
+      <div class="post-image">
+        <a><img src="{{ posts.사진.url }}" alt="img" width="100%"></a>
+      </div><br />
+
+      <!-- CONTENT POST -->
+      <div class="post-content">
+        {{ posts.content }}
+      </div><br />
+
+      <!-- FOOTER POST -->
+      <hr />
+      <div class="post-footer">
+
+
+        <!-- {% if user.username  %} -->
+        <!-- 수정 -->
+        <a href="{% url 'UD:change' posts.id %}">
+          <input type="button" name='change' value="수정">
+        </a>
+
+        <!-- 삭제 -->
+        <!-- <script type="text/javascript">
+          var location = "{% url 'UD:delete' posts.id %}"
+        </script> -->
+        <!-- <a onclick=checkdelete(location)> -->
+        <a href="{% url 'UD:delete' posts.id %}">
+          <input type="button" name="delete" value="삭제">
+        </a>
+        <!-- {% endif %} -->
+
+      </div>
+    </div>
+    {% endfor %}
+
+  </form>
+</body>
+</html>
+
+{% endblock content %}

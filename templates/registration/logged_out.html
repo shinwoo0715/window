@@ -1,0 +1,40 @@
+{% extends 'form.html' %}
+{% block content %}
+{% load static %}
+
+<script type="text/javascript" src="{% static 'js/go.js' %}"></script>
+<script type="text/javascript">
+var home = "{% url 'index' %}";
+var about = "{% url 'about' %}";
+var service = "{% url 'service' %}";
+var inquiry = "{% url 'inquiry' %}";
+var myfage = "{% url 'myfage' %}";
+
+var logout = "{% url 'AC:logout' %}"
+var login = "{% url 'AC:login' %}";
+var signup = "{% url 'AC:signup' %}";
+var upload = "{% url 'UD:upload' user.id %}";
+var download = "{% url 'UD:download' %}";
+function goLocation(){
+  location.href=home;
+}
+</script>
+
+{% if not user.is_active %}
+  <body onload="goLocation()"></body>
+{% else %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body onload="setTimeout('goLocation()' , 3000)">
+  이용해주셔서 감사합니다. 3초후에 Home으로 이동합니다.
+</body>
+</html>
+
+{% endif %}
+{% endblock %}

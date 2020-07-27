@@ -1,0 +1,106 @@
+{% extends 'form.html' %}
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <!-- <link rel="stylesheet" href="{% static 'css/loginStyle.css' %}"> -->
+  <style media="screen">
+    input,
+    .input {
+      font-size: 18px;
+      padding: 10px 10px 10px 5px;
+      -webkit-appearance: none;
+      display: block;
+      background: #fafafa;
+      color: #636363;
+      border: none;
+      border-bottom: 1px solid #757575;
+    }
+
+    .uploadInput {
+      margin: 10px 10px 10px 10px;
+    }
+
+    .uploadInput input {
+      border-radius: 10px;
+      margin: 0 0 30px 0;
+    }
+
+    .uploadInput #content {
+      width: 100%;
+      height: 60px;
+    }
+
+    .uploadInput #submit-btn {
+      margin-top: 100px;
+      font-size: 20px;
+    }
+
+    /* -- */
+    img {
+      max-width: 180px;
+    }
+    .fileupload input[type=file]{
+      padding:10px;
+      background: #2d2d2d;
+    }
+  </style>
+</head>
+
+<body>
+  {% if not user.is_active %}
+  <script type="text/javascript">
+    var go = "{% url 'AC:login' %}";
+
+    function loginError() {
+      alert("로그인을 해야 upload가 가능합니다.")
+      location.href = go
+    }
+    loginError();
+  </script>
+  {% else %}
+
+  <form action="{% url 'UD:upload' user.id %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <!--
+    <input type="text" name="content" id="content" placeholder="content">
+    <input type="file" id='fileupload' name="uploadFiles" />
+     -->
+    <div class="uploadInput" align='center'>
+      <div class="input">
+        {{ form.사진 }}
+
+        <!-- <span class='fileupload'><input type='file' onchange="readURL(this);" /></span>
+        <img id="blah" src="http://placehold.it/180" alt="your image" /> -->
+
+        <!-- {{ form.content }} -->
+        {{form.content}}
+        <input type="submit" id='submit-btn' value="Upload">
+      </div>
+    </div>
+  </form>
+  {% endif %}
+  <script type="text/javascript">
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+          $('#blah')
+            .attr('src', e.target.result);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+  </script>
+</body>
+
+</html>
+{% endblock %}

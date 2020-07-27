@@ -1,0 +1,10 @@
+__pychache__/
+*.py[cod]
+
+.Python
+ven/
+
+db.sqlite3
+.DS_Store
+
+.vscode/

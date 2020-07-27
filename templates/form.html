@@ -1,0 +1,117 @@
+{% load static %}
+<!-- {% static 'css' as cssDir %} -->
+{% static 'image' as imgDir %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}?after"> -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <script type="text/javascript" src="{% static 'js/go.js' %}"></script>
+</head>
+<body>
+  <script type="text/javascript">
+    var home = "{% url 'index' %}";
+    var about = "{% url 'about' %}";
+    var service = "{% url 'service' %}";
+    var inquiry = "{% url 'inquiry' %}";
+    var myfage = "{% url 'myfage' user.id %}";
+
+    var logout = "{% url 'AC:logout' %}"
+    var login = "{% url 'AC:login' %}";
+    var signup = "{% url 'AC:signup' %}";
+    var upload = "{% url 'UD:upload' user.id %}";
+    var download = "{% url 'UD:download' %}";
+    var windowMainBlog = "https://blog.naver.com/dughdhk0802"
+
+    function locationClick(local){
+      location.href=local
+    }
+
+    var choiseLogout
+    // logout할때 재질문
+    function checkLogout(choise){
+      choiseLogout = confirm("정말 로그아웃하시겠습니까?");
+      if(choiseLogout){
+        locationClick(logout);
+      }else{
+        alert("탁월한 선택입니다.");
+      }
+
+    }
+  </script>
+
+
+  <div class="wrapper">
+    <header class="header">
+      <ul>
+        <a href="{% url 'index' %}"><img src="{% static 'image/logo.png' %}" alt="img"></a>
+        <li onclick='locationClick(home)'><a>Home</a></li>
+        <li onclick='locationClick(about)'><a>About</a></li>
+        <li onclick='locationClick(service)'><a>Service</a></li>
+        <li onclick='locationClick(windowMainBlog)'><a>Inquiry</a></li>
+        {% if not user.is_active %}
+          <a onclick="locationClick(login)">login</a>
+          <a onclick="locationClick(signup)">signup</a>
+        {% else %}
+          <a onclick="locationClick(logout)" style="cursor: pointer">logout</a>
+        {% endif %}
+      </ul>
+    </header>
+
+
+      <article class="main">
+      {% block content %}
+  	  {% endblock %}
+      </article>
+
+      <aside class="aside aside-1">
+        <div class="aside-left">
+          <font><h1>Home</h1></font>
+          <ul>
+              <li onclick="locationClick(home)"><a>Home</a></li>
+              <li onclick="locationClick(about)"><a>About</a></li>
+              <li onclick="locationClick(service)"><a>Service</a></li>
+              <li onclick="locationClick(inquiry)"><a>Inquiry</a></li>
+          <!-- onclick="checkLogout(choiseLogout)" -->
+          </ul>
+        </div>
+      </aside>
+
+
+      <aside class="aside aside-2">
+        <div class="aside-right">
+          <font><h1>MyFage</h1></font>
+          <ul>
+            {% if not user.is_active %} <!-- 회원이 아닐때 -->
+              <li onclick="locationClick(login)"><a>Login</a></li>
+              <li onclick="locationClick(signup)"><a>Sign Up</a></li>
+              <li onclick="locationClick(upload)"><a>UpLoad</a></li>
+              <li onclick="locationClick(download)"><a>Download</a></li>
+            {% else %} <!-- 회원일떄 -->
+              <li onclick="locationClick(myfage)"><a >MyFage</a></li>
+              <li onclick="locationClick(logout)"><a>Logout</a></li>
+              <li onclick="locationClick(upload)"><a>UpLoad</a></li>
+              <li onclick="locationClick(download)"><a>Download</a></li>
+            {% endif %}
+          <!-- onclick="checkLogout(choiseLogout)" -->
+          </ul>
+        </div>
+      </aside>
+    </div> <!-- mainBody ending -->
+
+    <footer class="footer">
+        <!-- <ul>
+          <li><a href="#">고객센터</a></li>
+          <li><a href="#">1대1문의</a></li>
+        </ul> -->
+      {% block footerContent %}
+      {% endblock footerContent %}
+    </footer>
+
+</body>
+</html>

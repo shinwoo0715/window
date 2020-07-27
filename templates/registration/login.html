@@ -1,0 +1,105 @@
+{% extends 'form.html' %}
+{% block content %}
+
+{% load static %}
+{% static 'css' as cssDir %}
+{% static 'image' as imgDir %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="{% static 'css/loginStyle.css' %}">
+  <style media="screen">
+    .group i{
+      position: absolute;
+      left: 75%;
+      top: 27px;
+      color: orange;
+    }
+  </style>
+</head>
+
+<body>
+
+  <hgroup>
+
+    <h1>Login</h1>
+    <h3>your accout is bery secret...</h3>
+  </hgroup>
+  <form method='post'>{% csrf_token %}
+  <input type="hidden" name="path" value="{{request.path}}">
+    <!-- username -->
+    <div class="group">
+      <input type="text" id='username' name='username'><span class="highlight"></span><span class="bar"></span>
+      <label>Username</label>
+    </div>
+    <!-- email -->
+    <div class="group">
+      <input type="Email" name='email' id='email'><span class="highlight"></span><span class="bar"></span>
+      <label>Email</label>
+    </div>
+    <!-- password -->
+    <div class="group">
+      <input type="password" name='userpw' id='userpw'><span class="highlight"></span><span class="bar"></span>
+      <label>Password</label>
+      <i class="fa fa-eye fa-lg"></i>
+      <!-- icon은 일단 미뤄둔다. 2020 06 25 < 비밀번호 미리보기 > -->
+    </div>
+    <button type="submit" class="button buttonBlue">Subscribe
+      <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+    </button>
+    <ul id='login-bottom-tag'>
+      <li><a href="{% url 'AC:signup' %}">Sign Up</a></li>
+      <li><a href="">remember password</a></li>
+      <li><a href="">set password</a></li>
+    </ul>
+  </form>
+  <!-- <footer><a href="http://www.polymer-project.org/" target="_blank"><img src="https://www.polymer-project.org/images/logos/p-logo.svg"></a>
+    <p>You Gotta Love <a href="http://www.polymer-project.org/" target="_blank">Google</a></p>
+  </footer> -->
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+  <script type="text/javascript">
+    $(window, document, undefined).ready(function() {
+
+      $('input').blur(function() {
+        var $this = $(this);
+        if ($this.val())
+          $this.addClass('used');
+        else
+          $this.removeClass('used');
+      });
+      var $ripples = $('.ripples');
+      $ripples.on('click.Ripples', function(e) {
+
+        var $this = $(this);
+        var $offset = $this.parent().offset();
+        var $circle = $this.find('.ripplesCircle');
+
+        var x = e.pageX - $offset.left;
+        var y = e.pageY - $offset.top;
+
+        $circle.css({
+          top: y + 'px',
+          left: x + 'px'
+        });
+
+        $this.addClass('is-active');
+
+      });
+
+      $ripples.on('animationend webkitAnimationEnd mozAnimationEnd oanimationend MSAnimationEnd', function(e) {
+        $(this).removeClass('is-active');
+      });
+
+    });
+  </script>
+</body>
+
+</html>
+
+{% endblock %}

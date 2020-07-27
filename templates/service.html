@@ -1,0 +1,37 @@
+{% extends 'form.html' %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style media="screen">
+    .main-title{
+      position: relative;
+      top: -9px;
+    }
+  </style>
+</head>
+<body>
+  <h1 class="main-title">'저희가 하는 일'</h1>
+  <hr>
+  <div class="post POST1">
+    <h2 class="title">1번째 외풍차단</h2>
+    <div class="content">
+      바람의 통로를 차단하여서 온도를 낮추어줍니다.
+    </div>
+  </div>
+  <div class="post POST2">
+    <h2 class="title">2번째 벌레차단</h2>
+    <div class="content">
+      많은 벌레 각벌레들의 모든경로를 차단하여서 벌레를 차단합니다.
+    </div>
+  </div>
+
+</body>
+</html>
+
+{% endblock %}

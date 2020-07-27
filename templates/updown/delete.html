@@ -1,0 +1,46 @@
+{% extends 'form.html' %}
+
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+  <title>Document</title>
+</head>
+<style media="screen">
+  input , button{cursor: pointer;margin: 0 30px 0 30px;
+    background-color: white;
+    padding:5px;
+    font-size: 20px;
+    font-family: 'Do Hyeon', sans-serif;
+    transition: all .2s;
+    border-radius: 7px;
+    }input{padding-right: 10px;padding-left: 10px;}
+  input:hover , button:hover{
+    background-color: rgb(185, 185, 185);
+  }
+  p{margin-top: 20px;font-size: 30px; font-weight: bold;}
+  .box{
+    margin: 90px 50px 0 50px;
+    border: 2px solid gray;
+    border-radius: 10px;
+    padding: 40px;
+  }
+</style>
+<body>
+  <form method="post">
+    {% csrf_token %}
+    <div class="box">
+      <p>정말 삭제 하시겠습니까?</p>
+      <button onclick=location.href="javascript:history.back()" type="button" name="button">뒤로가기</button>
+      <input type="submit" name="" value="확인">
+    </div>
+  </form>
+</body>
+</html>
+
+{% endblock %}
